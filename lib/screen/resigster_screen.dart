@@ -1,17 +1,16 @@
 import 'package:chat_app/constanst.dart';
-import 'package:chat_app/screen/resigster_screen.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-
+class ResgisterScreen extends StatefulWidget {
+   ResgisterScreen({super.key});
+  static String id = 'ResgisterScreen';
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<ResgisterScreen> createState() => _ResgisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _ResgisterScreenState extends State<ResgisterScreen> {
   @override
   bool isVisable = true;
 
@@ -45,7 +44,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Row(
                   children: [
                     Text(
-                      'Sign In',
+                      'Sign Up',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -78,12 +77,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   hinttext: 'Enter your Password',
                   labeText: 'Password',
                 ),
+                const SizedBox(height: 10),
+                CstomTextFiled(
+                  keyboardType: TextInputType.visiblePassword,
+                  isVisible: isVisable,
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isVisable = !isVisable;
+                        });
+                      },
+                      icon: Icon((isVisable)
+                          ? Icons.remove_red_eye
+                          : Icons.visibility_off_rounded)),
+                  prefixIco: const Icon(Icons.lock),
+                  hinttext: 'Enter your Password',
+                  labeText: 'Confirm Password',
+                ),
                 const SizedBox(
                   height: 20,
                 ),
                 CustomButton(
                   onTop: () {},
-                  textButton: 'login',
+                  textButton: 'Resgister',
                 ),
                 const SizedBox(
                   height: 5,
@@ -92,15 +108,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "don't have an account ?",
+                      "already have an account ?",
                       style: TextStyle(color: Colors.white, fontSize: 16),
                     ),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, ResgisterScreen.id);
+                          Navigator.pop(context);
                         },
                         child: const Text(
-                          'Creat One!',
+                          'Sing In!',
                           style:
                               TextStyle(color: Color(0xffC7EDE6), fontSize: 16),
                         ))

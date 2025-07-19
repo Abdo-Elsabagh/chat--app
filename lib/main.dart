@@ -1,4 +1,5 @@
 import 'package:chat_app/screen/login_screen.dart';
+import 'package:chat_app/screen/resigster_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      routes: {
+        ResgisterScreen.id: (context) => ResgisterScreen(),
+        'LoginScreen': (context) => const LoginScreen()
+      },
       theme: ThemeData(
           inputDecorationTheme: InputDecorationTheme(
         prefixIconColor: Colors.white,
