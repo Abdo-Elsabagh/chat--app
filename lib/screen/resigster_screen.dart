@@ -1,4 +1,5 @@
 import 'package:chat_app/constanst.dart';
+import 'package:chat_app/widgets/box_resigsterd.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -92,26 +93,38 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                       UserCredential user = await FirebaseAuth.instance
                           .createUserWithEmailAndPassword(
                               email: email!, password: passwoed!);
+
+                      showDialog(
+                        context: context,
+                        builder: (context) => BoxResigster(
+                          massage: 'Enjoy the app now',
+                          icon: const Icon(Icons.check_circle,
+                              color: Colors.green, size: 60),
+                          text: '"Registration Successful"',
+                        ),
+                      );
                     } on FirebaseAuthException catch (e) {
                       String message = "";
 
-                      if (e.code == 'weak-password') {
-                        message = 'The password provided is too weak.';
-                      } else if (e.code == 'email-already-in-use') {
-                        message = 'The account already exists for that email.';
+                      if (e.code == 'email-already-in-use') {
+                        message = "This email is already in use.";
+                      } else if (e.code == 'weak-password') {
+                        message = "The password is too weak.";
+                      } else if (e.code == 'invalid-email') {
+                        message = "The email address is not valid.";
+                      } else {
+                        message = "An unexpected error occurred: ${e.message}";
                       }
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          backgroundColor: Colors.red, content: Text(message)));
+                      showDialog(
+                        context: context,
+                        builder: (context) => BoxResigster(
+                          icon: const Icon(Icons.error,
+                              color: Colors.red, size: 60),
+                          text: "Registration Failed",
+                          massage: message,
+                        ),
+                      );
                     }
-
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text(
-                          'Registration Successful',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )));
                   },
                   textButton: 'Resgister',
                 ),
