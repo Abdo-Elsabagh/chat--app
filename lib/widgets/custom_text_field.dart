@@ -16,10 +16,17 @@ class CstomTextFiled extends StatelessWidget {
   IconButton? suffixIcon;
   TextInputType? keyboardType;
   bool isVisible;
+
   Function(String)? onChange;
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'field is required';
+          }
+          return null;
+        },
         onChanged: onChange,
         keyboardType: keyboardType,
         obscureText: isVisible,

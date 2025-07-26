@@ -20,11 +20,9 @@ class BoxResigster extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           icon,
-          // const Icon(Icons.error, color: Colors.red, size: 60),
           const SizedBox(height: 16),
           Text(
             text,
-            // "Registration Failed",
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
