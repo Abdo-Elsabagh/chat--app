@@ -1,10 +1,11 @@
 import 'package:chat_app/constanst.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ResgisterScreen extends StatefulWidget {
-   ResgisterScreen({super.key});
+  const ResgisterScreen({super.key});
   static String id = 'ResgisterScreen';
   @override
   State<ResgisterScreen> createState() => _ResgisterScreenState();
@@ -13,7 +14,8 @@ class ResgisterScreen extends StatefulWidget {
 class _ResgisterScreenState extends State<ResgisterScreen> {
   @override
   bool isVisable = true;
-
+  String? email;
+  String? passwoed;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,12 +58,18 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                   height: 10,
                 ),
                 CstomTextFiled(
+                  onChange: (data) {
+                    email = data;
+                  },
                   prefixIco: const Icon(Icons.email),
                   labeText: 'Email',
                   hinttext: 'Enter your Email',
                 ),
                 const SizedBox(height: 10),
                 CstomTextFiled(
+                  onChange: (data) {
+                    passwoed = data;
+                  },
                   keyboardType: TextInputType.visiblePassword,
                   isVisible: isVisable,
                   suffixIcon: IconButton(
@@ -77,28 +85,34 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                   hinttext: 'Enter your Password',
                   labeText: 'Password',
                 ),
-                const SizedBox(height: 10),
-                CstomTextFiled(
-                  keyboardType: TextInputType.visiblePassword,
-                  isVisible: isVisable,
-                  suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isVisable = !isVisable;
-                        });
-                      },
-                      icon: Icon((isVisable)
-                          ? Icons.remove_red_eye
-                          : Icons.visibility_off_rounded)),
-                  prefixIco: const Icon(Icons.lock),
-                  hinttext: 'Enter your Password',
-                  labeText: 'Confirm Password',
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
+                const SizedBox(height: 20),
                 CustomButton(
-                  onTop: () {},
+                  onTop: () async {
+                    try {
+                      UserCredential user = await FirebaseAuth.instance
+                          .createUserWithEmailAndPassword(
+                              email: email!, password: passwoed!);
+                    } on FirebaseAuthException catch (e) {
+                      String message = "";
+
+                      if (e.code == 'weak-password') {
+                        message = 'The password provided is too weak.';
+                      } else if (e.code == 'email-already-in-use') {
+                        message = 'The account already exists for that email.';
+                      }
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor: Colors.red, content: Text(message)));
+                    }
+
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: Colors.green,
+                        content: Text(
+                          'Registration Successful',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        )));
+                  },
                   textButton: 'Resgister',
                 ),
                 const SizedBox(
