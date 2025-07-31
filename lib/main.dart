@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/screen/home_screen.dart';
 import 'package:chat_app/screen/login_screen.dart';
 import 'package:chat_app/screen/resigster_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,8 +21,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-        ResgisterScreen.id: (context) => ResgisterScreen(),
-        'LoginScreen': (context) => const LoginScreen()
+        ResgisterScreen.id: (context) => const ResgisterScreen(),
+        'LoginScreen': (context) => const LoginScreen(),
+        HomeScreen.id: (context) => const HomeScreen()
       },
       theme: ThemeData(
           inputDecorationTheme: InputDecorationTheme(

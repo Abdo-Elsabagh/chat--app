@@ -25,6 +25,9 @@ class CstomTextFiled extends StatelessWidget {
           if (value!.isEmpty) {
             return 'field is required';
           }
+          if (value.length < 6) {
+            return 'Password must be at least 6 characters';
+          }
           return null;
         },
         onChanged: onChange,
