@@ -38,7 +38,7 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/scholar.png',
+                      KLogo,
                       width: 100,
                       height: 100,
                     ),
@@ -67,7 +67,7 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    CstomTextFiled(
+                    CstomFormTextFiled(
                       onChange: (data) {
                         email = data;
                       },
@@ -77,7 +77,7 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                       hinttext: 'Enter your Email',
                     ),
                     const SizedBox(height: 10),
-                    CstomTextFiled(
+                    CstomFormTextFiled(
                       onChange: (data) {
                         password = data;
                       },
@@ -116,12 +116,12 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                                 massage: 'Enjoy the app now',
                                 icon: const Icon(Icons.check_circle,
                                     color: Colors.green, size: 60),
-                                text: '"Registration Successful"',
+                                text: '"Registration Successful 😊"',
                               ),
                             );
 
                             Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
+                                context, ChatScreen.id);
                           } on FirebaseAuthException catch (e) {
                             String message = "";
 
@@ -140,7 +140,7 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                               builder: (context) => BoxResigster(
                                 icon: const Icon(Icons.error,
                                     color: Colors.red, size: 60),
-                                text: "Registration Failed",
+                                text: "Registration Failed 😢",
                                 massage: message,
                               ),
                             );

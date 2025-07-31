@@ -22,8 +22,8 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         ResgisterScreen.id: (context) => const ResgisterScreen(),
-        'LoginScreen': (context) => const LoginScreen(),
-        HomeScreen.id: (context) => const HomeScreen()
+        LoginScreen.id: (context) => const LoginScreen(),
+        ChatScreen.id: (context) => const ChatScreen()
       },
       theme: ThemeData(
           inputDecorationTheme: InputDecorationTheme(
@@ -44,7 +44,7 @@ class MainApp extends StatelessWidget {
             borderSide: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(10)),
       )),
-      home: const LoginScreen(),
+      initialRoute: LoginScreen.id,
     );
   }
 }

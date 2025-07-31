@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CstomTextFiled extends StatelessWidget {
-  CstomTextFiled(
+class CstomFormTextFiled extends StatelessWidget {
+  CstomFormTextFiled(
       {super.key,
       this.hinttext,
       this.labeText,

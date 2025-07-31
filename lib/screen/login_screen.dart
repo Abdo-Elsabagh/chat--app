@@ -11,7 +11,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
+  static String id = 'LoginScreen';
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      'assets/images/scholar.png',
+                      KLogo,
                       width: 100,
                       height: 100,
                     ),
@@ -68,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    CstomTextFiled(
+                    CstomFormTextFiled(
                       onChange: (data) {
                         email = data;
                       },
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       hinttext: 'Enter your Email',
                     ),
                     const SizedBox(height: 10),
-                    CstomTextFiled(
+                    CstomFormTextFiled(
                       onChange: (data) {
                         password = data;
                       },
@@ -120,14 +120,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 massage: 'Enjoy the app now',
                                 icon: const Icon(Icons.check_circle,
                                     color: Colors.green, size: 60),
-                                text: '"Login Successful"',
+                                text: '"Login Successful 😊"',
                               ),
                             );
 
                             Navigator.pushReplacementNamed(
-                                context, HomeScreen.id);
+                                context, ChatScreen.id);
                           } on FirebaseAuthException catch (e) {
-                            print("ERROR CODE: ${e.code}");
+                            //  print("ERROR CODE: ${e.code}");
                             String message = '';
                             if (e.code == 'user-not-found') {
                               message = 'No user found for that email.';
@@ -156,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               builder: (context) => BoxResigster(
                                 icon: const Icon(Icons.error,
                                     color: Colors.red, size: 60),
-                                text: "Login Failed",
+                                text: "Login Failed 😢",
                                 massage: message,
                               ),
                             );
