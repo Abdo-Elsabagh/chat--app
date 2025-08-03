@@ -7,13 +7,12 @@ class ChatBuble extends StatelessWidget {
   Color? backgrange;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(18.0),
+    return Align(
+      alignment: Alignment.centerLeft,
       child: Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.only(left: 10),
-        height: 60,
-        width: 120,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 32 ),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(32),
