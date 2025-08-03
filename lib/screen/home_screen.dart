@@ -1,4 +1,5 @@
 import 'package:chat_app/constanst.dart';
+import 'package:chat_app/widgets/custom_chat_buble.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -27,6 +28,15 @@ class ChatScreen extends StatelessWidget {
           ],
         ),
         backgroundColor: kPrimaryColors,
+      ),
+      body: ListView.builder(
+        shrinkWrap: false,
+        itemBuilder: (context, index) {
+          return ChatBuble(
+            backgrange: kPrimaryColors,
+            text: 'i am new user ',
+          );
+        },
       ),
     );
   }
