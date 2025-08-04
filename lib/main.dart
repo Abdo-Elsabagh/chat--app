@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
       routes: {
         ResgisterScreen.id: (context) => const ResgisterScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
-        ChatScreen.id: (context) => const ChatScreen()
+        ChatScreen.id: (context) => ChatScreen()
       },
       theme: ThemeData(
           inputDecorationTheme: InputDecorationTheme(
