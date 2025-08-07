@@ -1,10 +1,12 @@
+import 'package:chat_app/constanst.dart';
+import 'package:chat_app/models/message.dart';
 import 'package:flutter/material.dart';
 
 class ChatBuble extends StatelessWidget {
-  ChatBuble({super.key, this.text, this.backgrange});
+  const ChatBuble({super.key, required this.message});
 
-  String? text;
-  Color? backgrange;
+  final Message message;
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -13,14 +15,14 @@ class ChatBuble extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         padding:
             const EdgeInsets.only(left: 16, right: 16, bottom: 32, top: 32),
-        decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
+        decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(32),
                 bottomRight: Radius.circular(32),
                 topRight: Radius.circular(32)),
-            color: backgrange),
+            color: kPrimaryColors),
         child: Text(
-          text!,
+          message.message,
           style: const TextStyle(color: Colors.white),
         ),
       ),

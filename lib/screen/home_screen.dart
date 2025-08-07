@@ -1,4 +1,5 @@
 import 'package:chat_app/constanst.dart';
+import 'package:chat_app/models/message.dart';
 import 'package:chat_app/widgets/custom_chat_buble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,10 @@ class ChatScreen extends StatelessWidget {
       future: messages.get(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          print(snapshot.data!.docs[0]['message']);
+          List<Message> messagesList = [];
+          for (int i = 0; i < snapshot.data!.docs.length; i++) {
+            messagesList.add(Message.fromjson(snapshot.data!.docs[i]));
+          }
           return Scaffold(
             appBar: AppBar(
               automaticallyImplyLeading: false,
@@ -44,11 +48,9 @@ class ChatScreen extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: false,
+                    itemCount: messagesList.length,
                     itemBuilder: (context, index) {
-                      return ChatBuble(
-                        backgrange: kPrimaryColors,
-                        text: 'i am new user ',
-                      );
+                      return ChatBuble(message: messagesList[index]);
                     },
                   ),
                 ),
@@ -83,7 +85,14 @@ class ChatScreen extends StatelessWidget {
             ),
           );
         } else {
-          return const Text('Loading.....');
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                strokeWidth: 6.0,
+              ),
+            ),
+          );
         }
       },
     );
