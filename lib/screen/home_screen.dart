@@ -1,5 +1,6 @@
 import 'package:chat_app/constanst.dart';
 import 'package:chat_app/models/message.dart';
+import 'package:chat_app/screen/account.dart';
 import 'package:chat_app/widgets/custom_chat_buble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +14,8 @@ class ChatScreen extends StatelessWidget {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot>(
-      future: messages.get(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: messages.snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Message> messagesList = [];
@@ -41,6 +42,17 @@ class ChatScreen extends StatelessWidget {
                   ),
                 ],
               ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, AccountScreen.id);
+                  },
+                  icon:
+                      const CircleAvatar(radius: 20, child: Icon(Icons.person)),
+                  color: Colors.black,
+                  iconSize: 15,
+                )
+              ],
               backgroundColor: kPrimaryColors,
             ),
             body: Column(

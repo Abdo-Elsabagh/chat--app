@@ -1,4 +1,5 @@
 import 'package:chat_app/firebase_options.dart';
+import 'package:chat_app/screen/account.dart';
 import 'package:chat_app/screen/home_screen.dart';
 import 'package:chat_app/screen/login_screen.dart';
 import 'package:chat_app/screen/resigster_screen.dart';
@@ -23,7 +24,8 @@ class MainApp extends StatelessWidget {
       routes: {
         ResgisterScreen.id: (context) => const ResgisterScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
-        ChatScreen.id: (context) => ChatScreen()
+        ChatScreen.id: (context) => ChatScreen(),
+        AccountScreen.id: (context) => const AccountScreen()
       },
       theme: ThemeData(
           inputDecorationTheme: InputDecorationTheme(
