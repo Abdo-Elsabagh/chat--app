@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 class ChatScreen extends StatelessWidget {
   ChatScreen({super.key});
   static String id = 'ChatScreen';
-
+  final _controller = ScrollController();
   CollectionReference messages =
       FirebaseFirestore.instance.collection(KMessagesCollection);
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: messages.snapshots(),
+      stream: messages.orderBy(kCreatedAt).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           List<Message> messagesList = [];
@@ -59,6 +59,7 @@ class ChatScreen extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
+                    controller: _controller,
                     shrinkWrap: false,
                     itemCount: messagesList.length,
                     itemBuilder: (context, index) {
@@ -71,8 +72,14 @@ class ChatScreen extends StatelessWidget {
                   child: TextField(
                     controller: controller,
                     onSubmitted: (data) {
-                      messages.add({KMessages: data});
+                      messages
+                          .add({KMessages: data, kCreatedAt: DateTime.now()});
                       controller.clear();
+
+                      _controller.animateTo(
+                          _controller.position.maxScrollExtent,
+                          duration: const Duration(milliseconds: 500),
+                          curve: Curves.easeIn );
                     },
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.bold),
