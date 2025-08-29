@@ -9,11 +9,13 @@ class ChatScreen extends StatelessWidget {
   ChatScreen({super.key});
   static String id = 'ChatScreen';
   final _controller = ScrollController();
+
   CollectionReference messages =
       FirebaseFirestore.instance.collection(KMessagesCollection);
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var email = ModalRoute.of(context)!.settings.arguments;
     return StreamBuilder<QuerySnapshot>(
       stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
       builder: (context, snapshot) {
@@ -64,7 +66,9 @@ class ChatScreen extends StatelessWidget {
                     shrinkWrap: false,
                     itemCount: messagesList.length,
                     itemBuilder: (context, index) {
-                      return ChatBuble(message: messagesList[index]);
+                      return messagesList[index].id == email
+                          ? ChatBuble(message: messagesList[index])
+                          : ChatBubleForFriend(message: messagesList[index]);
                     },
                   ),
                 ),
@@ -73,12 +77,14 @@ class ChatScreen extends StatelessWidget {
                   child: TextField(
                     controller: controller,
                     onSubmitted: (data) {
-                      messages
-                          .add({KMessages: data, kCreatedAt: DateTime.now()});
+                      messages.add({
+                        KMessages: data,
+                        kCreatedAt: DateTime.now(),
+                        KId: email
+                      });
                       controller.clear();
 
-                      _controller.animateTo(
-                        0,
+                      _controller.animateTo(0,
                           duration: const Duration(milliseconds: 500),
                           curve: Curves.easeIn);
                     },

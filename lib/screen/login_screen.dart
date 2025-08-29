@@ -125,7 +125,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             );
 
                             Navigator.pushReplacementNamed(
-                                context, ChatScreen.id);
+                                context, ChatScreen.id,arguments:email );
                           } on FirebaseAuthException catch (e) {
                             //  print("ERROR CODE: ${e.code}");
                             String message = '';

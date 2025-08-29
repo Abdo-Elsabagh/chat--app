@@ -121,7 +121,8 @@ class _ResgisterScreenState extends State<ResgisterScreen> {
                             );
 
                             Navigator.pushReplacementNamed(
-                                context, ChatScreen.id);
+                                context, ChatScreen.id,
+                                arguments: email);
                           } on FirebaseAuthException catch (e) {
                             String message = "";
 
